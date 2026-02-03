@@ -27,7 +27,7 @@
         text-align: center;
         box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         z-index: 2;
-        max-width: 320px;
+        max-width: 340px;
         width: 90%;
     }
 
@@ -65,9 +65,14 @@
 
     .message {
         display: none;
-        font-size: 20px;
+        font-size: 18px;
         color: #e63946;
         margin-top: 20px;
+        line-height: 1.4;
+    }
+
+    .message span {
+        font-weight: bold;
     }
 
     /* Floating hearts */
@@ -103,8 +108,11 @@
     </div>
 
     <div class="message" id="message">
-        Yayyy! 💕  
-        You just made my day! 🌹🥰
+        🎉 <span>Great!</span><br>
+        We have a booking at<br>
+        <span>Scaddabush</span><br>
+        🕙 <span>10:00 PM</span><br>
+        📅 <span>February 14th</span> ❤️
     </div>
 </div>
 
@@ -128,11 +136,10 @@
         noBtn.style.top = randomY + "px";
     }
 
-    // Create floating hearts
     function createHeart() {
         const heart = document.createElement("div");
         heart.className = "heart";
-        heart.innerHTML = ❤️";
+        heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.fontSize = (Math.random() * 20 + 15) + "px";
         heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
