@@ -5,97 +5,84 @@
 <title>Be My Valentine</title>
 
 <style>
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-    body {
-        margin: 0;
-        height: 100vh;
-        background: linear-gradient(135deg, #ff758c, #ff7eb3);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "Segoe UI", sans-serif;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
 
-    .card {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        z-index: 10;
-        max-width: 340px;
-        width: 90%;
-        position: relative; /* 🔑 FIX */
-    }
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    max-width: 340px;
+    width: 90%;
+    position: relative;
+    z-index: 10;
+}
 
-    h1 {
-        color: #e63946;
-        margin-bottom: 20px;
-    }
+h1 {
+    color: #e63946;
+}
 
-    .buttons {
-        position: relative; /* 🔑 FIX */
-        height: 80px;
-        margin-top: 10px;
-    }
+.buttons {
+    position: relative;
+    height: 80px;
+    margin-top: 20px;
+}
 
-    button {
-        padding: 12px 25px;
-        font-size: 16px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+}
 
-    .yes {
-        background-color: #e63946;
-        color: white;
-        position: absolute;
-        left: 20px;
-        top: 15px;
-    }
+.yes {
+    background: #e63946;
+    color: white;
+    left: 20px;
+    top: 20px;
+}
 
-    .no {
-        background-color: #6c757d;
-        color: white;
-        position: absolute;
-        right: 20px;
-        top: 15px;
-    }
+.no {
+    background: #6c757d;
+    color: white;
+    right: 20px;
+    top: 20px;
+}
 
-    .message {
-        display: none;
-        font-size: 18px;
-        color: #e63946;
-        margin-top: 20px;
-        line-height: 1.4;
-    }
+.message {
+    display: none;
+    font-size: 18px;
+    color: #e63946;
+    margin-top: 20px;
+    line-height: 1.4;
+}
 
-    .message span { font-weight: bold; }
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    pointer-events: none;
+}
 
-    /* Floating hearts */
-    .heart {
-        position: fixed; /* 🔑 FIX */
-        bottom: -20px;
-        font-size: 20px;
-        animation: floatUp 6s linear infinite;
-        pointer-events: none; /* 🔑 FIX (prevents blocking clicks) */
-        opacity: 0.8;
-    }
-
-    @keyframes floatUp {
-        from {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-        to {
-            transform: translateY(-110vh) scale(1.5);
-            opacity: 0;
-        }
-    }
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
+}
 </style>
 </head>
 
@@ -105,53 +92,11 @@
     <h1>Will you be my Valentine? 💖</h1>
 
     <div class="buttons">
-        <button class="yes" onclick="yesClicked()">Yes 💘</button>
-        <button class="no" onmouseenter="moveNo()">No 😅</button>
+        <button class="yes">Yes 💘</button>
+        <button class="no">No 😅</button>
     </div>
 
     <div class="message" id="message">
-        🎉 <span>Great!</span><br>
+        🎉 <strong>Great!</strong><br>
         We have a booking at<br>
-        <span>Scaddabush</span><br>
-        🕙 <span>10:00 PM</span><br>
-        📅 <span>February 14th</span> ❤️
-    </div>
-</div>
-
-<script>
-    function yesClicked() {
-        document.querySelector(".buttons").style.display = "none";
-        document.getElementById("message").style.display = "block";
-    }
-
-    function moveNo() {
-        const noBtn = document.querySelector(".no");
-        const container = document.querySelector(".buttons");
-
-        const maxX = container.clientWidth - noBtn.offsetWidth;
-        const maxY = container.clientHeight - noBtn.offsetHeight;
-
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
-
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-    }
-
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-    }
-
-    setInterval(createHeart, 400);
-</script>
-
-</body>
-</html>
+        <stron
