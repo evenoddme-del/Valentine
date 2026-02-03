@@ -5,9 +5,7 @@
 <title>Be My Valentine</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
         margin: 0;
@@ -26,9 +24,10 @@
         border-radius: 20px;
         text-align: center;
         box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        z-index: 2;
+        z-index: 10;
         max-width: 340px;
         width: 90%;
+        position: relative; /* 🔑 FIX */
     }
 
     h1 {
@@ -37,8 +36,9 @@
     }
 
     .buttons {
-        position: relative;
+        position: relative; /* 🔑 FIX */
         height: 80px;
+        margin-top: 10px;
     }
 
     button {
@@ -47,20 +47,23 @@
         border-radius: 10px;
         border: none;
         cursor: pointer;
-        position: absolute;
         transition: 0.2s;
     }
 
     .yes {
         background-color: #e63946;
         color: white;
-        left: 30px;
+        position: absolute;
+        left: 20px;
+        top: 15px;
     }
 
     .no {
         background-color: #6c757d;
         color: white;
-        right: 30px;
+        position: absolute;
+        right: 20px;
+        top: 15px;
     }
 
     .message {
@@ -71,25 +74,24 @@
         line-height: 1.4;
     }
 
-    .message span {
-        font-weight: bold;
-    }
+    .message span { font-weight: bold; }
 
     /* Floating hearts */
     .heart {
-        position: absolute;
+        position: fixed; /* 🔑 FIX */
         bottom: -20px;
         font-size: 20px;
         animation: floatUp 6s linear infinite;
+        pointer-events: none; /* 🔑 FIX (prevents blocking clicks) */
         opacity: 0.8;
     }
 
     @keyframes floatUp {
-        0% {
+        from {
             transform: translateY(0) scale(1);
             opacity: 1;
         }
-        100% {
+        to {
             transform: translateY(-110vh) scale(1.5);
             opacity: 0;
         }
@@ -104,7 +106,7 @@
 
     <div class="buttons">
         <button class="yes" onclick="yesClicked()">Yes 💘</button>
-        <button class="no" onmouseover="moveNo()">No 😅</button>
+        <button class="no" onmouseenter="moveNo()">No 😅</button>
     </div>
 
     <div class="message" id="message">
@@ -124,16 +126,16 @@
 
     function moveNo() {
         const noBtn = document.querySelector(".no");
-        const card = document.querySelector(".card");
+        const container = document.querySelector(".buttons");
 
-        const maxX = card.offsetWidth - noBtn.offsetWidth;
-        const maxY = card.offsetHeight - noBtn.offsetHeight;
+        const maxX = container.clientWidth - noBtn.offsetWidth;
+        const maxY = container.clientHeight - noBtn.offsetHeight;
 
-        const randomX = Math.random() * maxX;
-        const randomY = Math.random() * maxY;
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
 
-        noBtn.style.left = randomX + "px";
-        noBtn.style.top = randomY + "px";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
     }
 
     function createHeart() {
@@ -145,10 +147,7 @@
         heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
 
         document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
+        setTimeout(() => heart.remove(), 6000);
     }
 
     setInterval(createHeart, 400);
