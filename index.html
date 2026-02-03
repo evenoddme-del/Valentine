@@ -1,24 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine Test</title>
+<title>Be My Valentine</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    max-width: 340px;
+    width: 90%;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    color: #e63946;
+}
+
+.buttons {
+    position: relative;
+    height: 80px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+}
+
+.yes {
+    background: #e63946;
+    color: white;
+    left: 20px;
+    top: 20px;
+}
+
+.no {
+    background: #6c757d;
+    color: white;
+    right: 20px;
+    top: 20px;
+}
+
+.message {
+    display: none;
+    font-size: 18px;
+    color: #e63946;
+    margin-top: 20px;
+    line-height: 1.4;
+}
+
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
 </head>
 
-<body style="font-family: Arial; text-align:center; margin-top:100px;">
+<body>
 
-<h1>Will you be my Valentine? 💖</h1>
+<div class="card">
+    <h1>Will you be my Valentine? 💖</h1>
 
-<button id="yesBtn">Yes</button>
-<button id="noBtn">No</button>
+    <div class="buttons">
+        <button class="yes">Yes 💘</button>
+        <button class="no">No 😅</button>
+    </div>
 
-<p id="result" style="display:none; font-size:20px; color:red;">
-Great! We have a booking at Scaddabush at 10:00 PM on Feb 14 ❤️
-</p>
+    <div class="message" id="message">
+        🎉 <strong>Great!</strong><br>
+        We have a booking at<br>
+        <strong>Scaddabush</strong><br>
+        🕙 <strong>10:00 PM</strong><br>
+        📅 <strong>February 14th</strong> ❤️
+    </div>
+</div>
 
 <script>
-document.getElementById("yesBtn").onclick = function () {
-    document.getElementById("result").style.display = "block";
-};
+document.addEventListener("DOMContentLoaded", () => {
+    const yesBtn = document.querySelector(".yes");
+    const noBtn = document.querySelector(".no");
+    const buttons = document.querySelector(".buttons");
+    const message = document.getElementById("message");
 
-document.
+    yesBtn.addEventListener("click", () => {
+        buttons.style.display = "none";
+        message.style.display = "block";
+    });
+
+    noBtn.addEventListener("mouseenter", () => {
+        const maxX = buttons.clientWidth - noBtn.offsetWidth;
+        const maxY = buttons.clientHeight - noBtn.offsetHeight;
+
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+    });
+
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (15 + Math.random() * 20) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }, 400);
+});
+</script>
+
+</body>
+</html>
